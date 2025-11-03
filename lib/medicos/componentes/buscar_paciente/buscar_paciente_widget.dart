@@ -8,6 +8,7 @@ import '/index.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import 'package:webviewx_plus/webviewx_plus.dart';
 import 'buscar_paciente_model.dart';
 export 'buscar_paciente_model.dart';
 
@@ -32,8 +33,11 @@ class _BuscarPacienteWidgetState extends State<BuscarPacienteWidget> {
     super.initState();
     _model = createModel(context, () => BuscarPacienteModel());
 
-    _model.emailTextController ??= TextEditingController();
-    _model.emailFocusNode ??= FocusNode();
+    _model.nomeTextController ??= TextEditingController();
+    _model.nomeFocusNode ??= FocusNode();
+
+    _model.cpfTextController ??= TextEditingController();
+    _model.cpfFocusNode ??= FocusNode();
   }
 
   @override
@@ -115,7 +119,7 @@ class _BuscarPacienteWidgetState extends State<BuscarPacienteWidget> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'CPF',
+                  'Nome',
                   style: FlutterFlowTheme.of(context).bodyMedium.override(
                         font: GoogleFonts.inter(
                           fontWeight: FlutterFlowTheme.of(context)
@@ -135,8 +139,8 @@ class _BuscarPacienteWidgetState extends State<BuscarPacienteWidget> {
                 Container(
                   width: double.infinity,
                   child: TextFormField(
-                    controller: _model.emailTextController,
-                    focusNode: _model.emailFocusNode,
+                    controller: _model.nomeTextController,
+                    focusNode: _model.nomeFocusNode,
                     autofocus: false,
                     obscureText: false,
                     decoration: InputDecoration(
@@ -226,8 +230,130 @@ class _BuscarPacienteWidgetState extends State<BuscarPacienteWidget> {
                               FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                         ),
                     cursorColor: FlutterFlowTheme.of(context).primaryText,
-                    validator: _model.emailTextControllerValidator
-                        .asValidator(context),
+                    validator:
+                        _model.nomeTextControllerValidator.asValidator(context),
+                  ),
+                ),
+              ].divide(SizedBox(height: 5.0)),
+            ),
+            Column(
+              mainAxisSize: MainAxisSize.max,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  'CPF',
+                  style: FlutterFlowTheme.of(context).bodyMedium.override(
+                        font: GoogleFonts.inter(
+                          fontWeight: FlutterFlowTheme.of(context)
+                              .bodyMedium
+                              .fontWeight,
+                          fontStyle:
+                              FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                        ),
+                        color: FlutterFlowTheme.of(context).secondaryText,
+                        letterSpacing: 0.0,
+                        fontWeight:
+                            FlutterFlowTheme.of(context).bodyMedium.fontWeight,
+                        fontStyle:
+                            FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                      ),
+                ),
+                Container(
+                  width: double.infinity,
+                  child: TextFormField(
+                    controller: _model.cpfTextController,
+                    focusNode: _model.cpfFocusNode,
+                    autofocus: false,
+                    obscureText: false,
+                    decoration: InputDecoration(
+                      isDense: true,
+                      labelStyle:
+                          FlutterFlowTheme.of(context).labelMedium.override(
+                                font: GoogleFonts.inter(
+                                  fontWeight: FlutterFlowTheme.of(context)
+                                      .labelMedium
+                                      .fontWeight,
+                                  fontStyle: FlutterFlowTheme.of(context)
+                                      .labelMedium
+                                      .fontStyle,
+                                ),
+                                letterSpacing: 0.0,
+                                fontWeight: FlutterFlowTheme.of(context)
+                                    .labelMedium
+                                    .fontWeight,
+                                fontStyle: FlutterFlowTheme.of(context)
+                                    .labelMedium
+                                    .fontStyle,
+                              ),
+                      hintStyle:
+                          FlutterFlowTheme.of(context).labelMedium.override(
+                                font: GoogleFonts.inter(
+                                  fontWeight: FlutterFlowTheme.of(context)
+                                      .labelMedium
+                                      .fontWeight,
+                                  fontStyle: FlutterFlowTheme.of(context)
+                                      .labelMedium
+                                      .fontStyle,
+                                ),
+                                letterSpacing: 0.0,
+                                fontWeight: FlutterFlowTheme.of(context)
+                                    .labelMedium
+                                    .fontWeight,
+                                fontStyle: FlutterFlowTheme.of(context)
+                                    .labelMedium
+                                    .fontStyle,
+                              ),
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide(
+                          color: Color(0xFFEDF1F3),
+                          width: 1.0,
+                        ),
+                        borderRadius: BorderRadius.circular(8.0),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: BorderSide(
+                          color: FlutterFlowTheme.of(context).blackVersatilis,
+                          width: 1.0,
+                        ),
+                        borderRadius: BorderRadius.circular(8.0),
+                      ),
+                      errorBorder: OutlineInputBorder(
+                        borderSide: BorderSide(
+                          color: FlutterFlowTheme.of(context).error,
+                          width: 1.0,
+                        ),
+                        borderRadius: BorderRadius.circular(8.0),
+                      ),
+                      focusedErrorBorder: OutlineInputBorder(
+                        borderSide: BorderSide(
+                          color: FlutterFlowTheme.of(context).error,
+                          width: 1.0,
+                        ),
+                        borderRadius: BorderRadius.circular(8.0),
+                      ),
+                      filled: true,
+                      fillColor:
+                          FlutterFlowTheme.of(context).secondaryBackground,
+                    ),
+                    style: FlutterFlowTheme.of(context).bodyMedium.override(
+                          font: GoogleFonts.inter(
+                            fontWeight: FlutterFlowTheme.of(context)
+                                .bodyMedium
+                                .fontWeight,
+                            fontStyle: FlutterFlowTheme.of(context)
+                                .bodyMedium
+                                .fontStyle,
+                          ),
+                          letterSpacing: 0.0,
+                          fontWeight: FlutterFlowTheme.of(context)
+                              .bodyMedium
+                              .fontWeight,
+                          fontStyle:
+                              FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                        ),
+                    cursorColor: FlutterFlowTheme.of(context).primaryText,
+                    validator:
+                        _model.cpfTextControllerValidator.asValidator(context),
                   ),
                 ),
               ].divide(SizedBox(height: 5.0)),
@@ -236,28 +362,91 @@ class _BuscarPacienteWidgetState extends State<BuscarPacienteWidget> {
               padding: EdgeInsetsDirectional.fromSTEB(0.0, 30.0, 0.0, 30.0),
               child: FFButtonWidget(
                 onPressed: () async {
-                  _model.apiResultm2h =
-                      await DizinvolveAdminApiGroup.buscarUsuarioCPFCall.call(
-                    cpf: _model.emailTextController.text,
-                    token: FFAppState().token,
-                  );
-
-                  if ((_model.apiResultm2h?.succeeded ?? true)) {
-                    context.pushNamed(
-                      FichaDoPacienteWidget.routeName,
-                      queryParameters: {
-                        'usuario': serializeParam(
-                          ((_model.apiResultm2h?.jsonBody ?? '')
-                                  .toList()
-                                  .map<UsuarioCpfStruct?>(
-                                      UsuarioCpfStruct.maybeFromMap)
-                                  .toList() as Iterable<UsuarioCpfStruct?>)
-                              .withoutNulls
-                              .firstOrNull,
-                          ParamType.DataStruct,
-                        ),
-                      }.withoutNulls,
+                  if (_model.nomeTextController.text == '') {
+                    _model.apiResultm2h =
+                        await DizinvolveAdminApiGroup.buscarUsuarioCPFCall.call(
+                      cpf: _model.cpfTextController.text,
+                      token: FFAppState().token,
                     );
+
+                    if ((_model.apiResultm2h?.succeeded ?? true)) {
+                      context.pushNamed(
+                        FichaDoPacienteWidget.routeName,
+                        queryParameters: {
+                          'usuario': serializeParam(
+                            ((_model.apiResultm2h?.jsonBody ?? '')
+                                    .toList()
+                                    .map<UsuarioCpfStruct?>(
+                                        UsuarioCpfStruct.maybeFromMap)
+                                    .toList() as Iterable<UsuarioCpfStruct?>)
+                                .withoutNulls
+                                .firstOrNull,
+                            ParamType.DataStruct,
+                          ),
+                        }.withoutNulls,
+                      );
+                    } else {
+                      await showDialog(
+                        context: context,
+                        builder: (alertDialogContext) {
+                          return WebViewAware(
+                            child: AlertDialog(
+                              title: Text('Paciente'),
+                              content: Text(
+                                  (_model.apiResultm2h?.jsonBody ?? '')
+                                      .toString()),
+                              actions: [
+                                TextButton(
+                                  onPressed: () =>
+                                      Navigator.pop(alertDialogContext),
+                                  child: Text('Ok'),
+                                ),
+                              ],
+                            ),
+                          );
+                        },
+                      );
+                    }
+                  } else {
+                    _model.apiNome = await DizinvolveAdminApiGroup
+                        .buscarUsuarioNomeCall
+                        .call(
+                      nome: _model.nomeTextController.text,
+                      token: FFAppState().token,
+                    );
+
+                    if ((_model.apiNome?.succeeded ?? true)) {
+                      context.pushNamed(
+                        FichaDoPacienteWidget.routeName,
+                        queryParameters: {
+                          'usuario': serializeParam(
+                            UsuarioCpfStruct.maybeFromMap(
+                                (_model.apiNome?.jsonBody ?? '')),
+                            ParamType.DataStruct,
+                          ),
+                        }.withoutNulls,
+                      );
+                    } else {
+                      await showDialog(
+                        context: context,
+                        builder: (alertDialogContext) {
+                          return WebViewAware(
+                            child: AlertDialog(
+                              title: Text('Paciente'),
+                              content: Text(
+                                  (_model.apiNome?.jsonBody ?? '').toString()),
+                              actions: [
+                                TextButton(
+                                  onPressed: () =>
+                                      Navigator.pop(alertDialogContext),
+                                  child: Text('Ok'),
+                                ),
+                              ],
+                            ),
+                          );
+                        },
+                      );
+                    }
                   }
 
                   safeSetState(() {});

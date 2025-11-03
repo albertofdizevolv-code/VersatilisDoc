@@ -1104,6 +1104,7 @@ class DizinvolveAdminApiGroup {
     'Content-Type': 'application/json',
   };
   static BuscarUsuarioCPFCall buscarUsuarioCPFCall = BuscarUsuarioCPFCall();
+  static BuscarUsuarioNomeCall buscarUsuarioNomeCall = BuscarUsuarioNomeCall();
   static PainelDeAlertaCall painelDeAlertaCall = PainelDeAlertaCall();
   static ResultadoDoExameCall resultadoDoExameCall = ResultadoDoExameCall();
   static PutEmAtendimentoCall putEmAtendimentoCall = PutEmAtendimentoCall();
@@ -1133,6 +1134,34 @@ class BuscarUsuarioCPFCall {
     return ApiManager.instance.makeApiCall(
       callName: 'Buscar Usuario CPF',
       apiUrl: '${baseUrl}/Login/DadosUsuario?UserCPF=${cpf}',
+      callType: ApiCallType.GET,
+      headers: {
+        'Authorization': 'Bearer ${token}',
+        'Content-Type': 'application/json',
+      },
+      params: {},
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+      isStreamingApi: false,
+      alwaysAllowBody: false,
+    );
+  }
+}
+
+class BuscarUsuarioNomeCall {
+  Future<ApiCallResponse> call({
+    String? nome = '',
+    String? token = 'ce1a4452-8601-44a1-a375-1aa4195f6e5c',
+  }) async {
+    final baseUrl = DizinvolveAdminApiGroup.getBaseUrl(
+      token: token,
+    );
+
+    return ApiManager.instance.makeApiCall(
+      callName: 'Buscar Usuario Nome',
+      apiUrl: '${baseUrl}/Login/DadosUsuarioPorNome?Nome==${nome}',
       callType: ApiCallType.GET,
       headers: {
         'Authorization': 'Bearer ${token}',
@@ -1616,16 +1645,22 @@ class LoginMedicoCall {
       token: token,
     );
 
+    final ffApiRequestBody = '''
+{
+  "Login": "${escapeStringForJson(login)}",
+  "Senha": "${escapeStringForJson(senha)}"
+}''';
     return ApiManager.instance.makeApiCall(
       callName: 'LoginMedico',
-      apiUrl:
-          '${baseUrl}/Colaborador/LoginColaborador?Login=${login}&Senha=${senha}',
-      callType: ApiCallType.GET,
+      apiUrl: '${baseUrl}/Colaborador/LoginColaborador',
+      callType: ApiCallType.POST,
       headers: {
         'Authorization': 'Bearer ${token}',
         'Content-Type': 'application/json',
       },
       params: {},
+      body: ffApiRequestBody,
+      bodyType: BodyType.JSON,
       returnBody: true,
       encodeBodyUtf8: false,
       decodeUtf8: false,
@@ -1997,6 +2032,43 @@ class RefreshTokenCall {
   static int? expires(dynamic response) => castToType<int>(getJsonField(
         response,
         r'''$.expires_in''',
+      ));
+}
+
+class CepCall {
+  static Future<ApiCallResponse> call({
+    String? cep = '',
+  }) async {
+    return ApiManager.instance.makeApiCall(
+      callName: 'CEP',
+      apiUrl: 'https://brasilapi.com.br/api/cep/v2/${cep}',
+      callType: ApiCallType.GET,
+      headers: {},
+      params: {},
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+      isStreamingApi: false,
+      alwaysAllowBody: false,
+    );
+  }
+
+  static String? estado(dynamic response) => castToType<String>(getJsonField(
+        response,
+        r'''$.state''',
+      ));
+  static String? cidade(dynamic response) => castToType<String>(getJsonField(
+        response,
+        r'''$.city''',
+      ));
+  static String? bairro(dynamic response) => castToType<String>(getJsonField(
+        response,
+        r'''$.neighborhood''',
+      ));
+  static String? rua(dynamic response) => castToType<String>(getJsonField(
+        response,
+        r'''$.street''',
       ));
 }
 

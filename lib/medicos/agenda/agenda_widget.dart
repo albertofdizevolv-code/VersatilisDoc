@@ -75,7 +75,7 @@ class _AgendaWidgetState extends State<AgendaWidget> {
                           mainAxisSize: MainAxisSize.max,
                           children: [
                             Text(
-                              'Para qual paciente é o agendamento?',
+                              'Qual ficha do paciente deseja acessar?',
                               style: FlutterFlowTheme.of(context)
                                   .bodyMedium
                                   .override(

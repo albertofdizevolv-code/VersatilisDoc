@@ -61,6 +61,12 @@ class EditarPacienteModel extends FlutterFlowModel<EditarPacienteWidget> {
   TextEditingController? textFieldTelTextController;
   late MaskTextInputFormatter textFieldTelMask;
   String? Function(BuildContext, String?)? textFieldTelTextControllerValidator;
+  // State field(s) for TextFieldTelCelular widget.
+  FocusNode? textFieldTelCelularFocusNode;
+  TextEditingController? textFieldTelCelularTextController;
+  late MaskTextInputFormatter textFieldTelCelularMask;
+  String? Function(BuildContext, String?)?
+      textFieldTelCelularTextControllerValidator;
   // State field(s) for TextFieldEmail widget.
   FocusNode? textFieldEmailFocusNode;
   TextEditingController? textFieldEmailTextController;
@@ -79,6 +85,8 @@ class EditarPacienteModel extends FlutterFlowModel<EditarPacienteWidget> {
   FocusNode? textFieldCepFocusNode;
   TextEditingController? textFieldCepTextController;
   String? Function(BuildContext, String?)? textFieldCepTextControllerValidator;
+  // Stores action output result for [Backend Call - API (CEP)] action in TextFieldCep widget.
+  ApiCallResponse? apiResult1ez;
   // State field(s) for TextFieldEnde widget.
   FocusNode? textFieldEndeFocusNode;
   TextEditingController? textFieldEndeTextController;
@@ -152,6 +160,9 @@ class EditarPacienteModel extends FlutterFlowModel<EditarPacienteWidget> {
 
     textFieldTelFocusNode?.dispose();
     textFieldTelTextController?.dispose();
+
+    textFieldTelCelularFocusNode?.dispose();
+    textFieldTelCelularTextController?.dispose();
 
     textFieldEmailFocusNode?.dispose();
     textFieldEmailTextController?.dispose();

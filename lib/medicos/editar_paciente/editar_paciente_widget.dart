@@ -7,6 +7,7 @@ import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/form_field_controller.dart';
 import '/global_components/header/header_widget.dart';
 import '/flutter_flow/custom_functions.dart' as functions;
+import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
@@ -49,8 +50,7 @@ class _EditarPacienteWidgetState extends State<EditarPacienteWidget> {
     _model.textFieldCpfFocusNode ??= FocusNode();
 
     _model.textFieldCpfMask = MaskTextInputFormatter(mask: '###.###.###-##');
-    _model.textFieldDataTextController ??=
-        TextEditingController(text: widget.user?.dtNasc);
+    _model.textFieldDataTextController ??= TextEditingController();
     _model.textFieldDataFocusNode ??= FocusNode();
 
     _model.textFieldDataMask = MaskTextInputFormatter(mask: '##/##/####');
@@ -59,6 +59,12 @@ class _EditarPacienteWidgetState extends State<EditarPacienteWidget> {
     _model.textFieldTelFocusNode ??= FocusNode();
 
     _model.textFieldTelMask = MaskTextInputFormatter(mask: '(##) # ####-####');
+    _model.textFieldTelCelularTextController ??=
+        TextEditingController(text: widget.user?.celular);
+    _model.textFieldTelCelularFocusNode ??= FocusNode();
+
+    _model.textFieldTelCelularMask =
+        MaskTextInputFormatter(mask: '(##) # ####-####');
     _model.textFieldEmailTextController ??=
         TextEditingController(text: widget.user?.email);
     _model.textFieldEmailFocusNode ??= FocusNode();
@@ -89,6 +95,14 @@ class _EditarPacienteWidgetState extends State<EditarPacienteWidget> {
 
     _model.textFieldSenhaTextController ??= TextEditingController();
     _model.textFieldSenhaFocusNode ??= FocusNode();
+
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {
+          _model.textFieldDataTextController?.text = dateTimeFormat(
+            "d/M/y",
+            functions.stringToDateTime(widget.user!.dtNasc),
+            locale: FFLocalizations.of(context).languageCode,
+          );
+        }));
   }
 
   @override
@@ -852,6 +866,164 @@ class _EditarPacienteWidgetState extends State<EditarPacienteWidget> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
+                                  'Celular',
+                                  style: FlutterFlowTheme.of(context)
+                                      .bodyMedium
+                                      .override(
+                                        font: GoogleFonts.manrope(
+                                          fontWeight: FontWeight.w600,
+                                          fontStyle:
+                                              FlutterFlowTheme.of(context)
+                                                  .bodyMedium
+                                                  .fontStyle,
+                                        ),
+                                        letterSpacing: 0.0,
+                                        fontWeight: FontWeight.w600,
+                                        fontStyle: FlutterFlowTheme.of(context)
+                                            .bodyMedium
+                                            .fontStyle,
+                                      ),
+                                ),
+                                Container(
+                                  width: double.infinity,
+                                  child: Padding(
+                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                        0.0, 0.0, 1.0, 0.0),
+                                    child: TextFormField(
+                                      controller: _model
+                                          .textFieldTelCelularTextController,
+                                      focusNode:
+                                          _model.textFieldTelCelularFocusNode,
+                                      autofocus: false,
+                                      obscureText: false,
+                                      decoration: InputDecoration(
+                                        isDense: true,
+                                        labelStyle: FlutterFlowTheme.of(context)
+                                            .labelMedium
+                                            .override(
+                                              font: GoogleFonts.inter(
+                                                fontWeight:
+                                                    FlutterFlowTheme.of(context)
+                                                        .labelMedium
+                                                        .fontWeight,
+                                                fontStyle:
+                                                    FlutterFlowTheme.of(context)
+                                                        .labelMedium
+                                                        .fontStyle,
+                                              ),
+                                              letterSpacing: 0.0,
+                                              fontWeight:
+                                                  FlutterFlowTheme.of(context)
+                                                      .labelMedium
+                                                      .fontWeight,
+                                              fontStyle:
+                                                  FlutterFlowTheme.of(context)
+                                                      .labelMedium
+                                                      .fontStyle,
+                                            ),
+                                        hintStyle: FlutterFlowTheme.of(context)
+                                            .labelMedium
+                                            .override(
+                                              font: GoogleFonts.inter(
+                                                fontWeight:
+                                                    FlutterFlowTheme.of(context)
+                                                        .labelMedium
+                                                        .fontWeight,
+                                                fontStyle:
+                                                    FlutterFlowTheme.of(context)
+                                                        .labelMedium
+                                                        .fontStyle,
+                                              ),
+                                              letterSpacing: 0.0,
+                                              fontWeight:
+                                                  FlutterFlowTheme.of(context)
+                                                      .labelMedium
+                                                      .fontWeight,
+                                              fontStyle:
+                                                  FlutterFlowTheme.of(context)
+                                                      .labelMedium
+                                                      .fontStyle,
+                                            ),
+                                        enabledBorder: OutlineInputBorder(
+                                          borderSide: BorderSide(
+                                            color: Color(0xFFC4C4C4),
+                                            width: 1.0,
+                                          ),
+                                          borderRadius:
+                                              BorderRadius.circular(8.0),
+                                        ),
+                                        focusedBorder: OutlineInputBorder(
+                                          borderSide: BorderSide(
+                                            color: FlutterFlowTheme.of(context)
+                                                .primary,
+                                            width: 1.0,
+                                          ),
+                                          borderRadius:
+                                              BorderRadius.circular(8.0),
+                                        ),
+                                        errorBorder: OutlineInputBorder(
+                                          borderSide: BorderSide(
+                                            color: FlutterFlowTheme.of(context)
+                                                .error,
+                                            width: 1.0,
+                                          ),
+                                          borderRadius:
+                                              BorderRadius.circular(8.0),
+                                        ),
+                                        focusedErrorBorder: OutlineInputBorder(
+                                          borderSide: BorderSide(
+                                            color: FlutterFlowTheme.of(context)
+                                                .error,
+                                            width: 1.0,
+                                          ),
+                                          borderRadius:
+                                              BorderRadius.circular(8.0),
+                                        ),
+                                        filled: true,
+                                        fillColor: FlutterFlowTheme.of(context)
+                                            .secondaryBackground,
+                                      ),
+                                      style: FlutterFlowTheme.of(context)
+                                          .bodyMedium
+                                          .override(
+                                            font: GoogleFonts.inter(
+                                              fontWeight:
+                                                  FlutterFlowTheme.of(context)
+                                                      .bodyMedium
+                                                      .fontWeight,
+                                              fontStyle:
+                                                  FlutterFlowTheme.of(context)
+                                                      .bodyMedium
+                                                      .fontStyle,
+                                            ),
+                                            letterSpacing: 0.0,
+                                            fontWeight:
+                                                FlutterFlowTheme.of(context)
+                                                    .bodyMedium
+                                                    .fontWeight,
+                                            fontStyle:
+                                                FlutterFlowTheme.of(context)
+                                                    .bodyMedium
+                                                    .fontStyle,
+                                          ),
+                                      cursorColor: FlutterFlowTheme.of(context)
+                                          .primaryText,
+                                      validator: _model
+                                          .textFieldTelCelularTextControllerValidator
+                                          .asValidator(context),
+                                      inputFormatters: [
+                                        _model.textFieldTelCelularMask
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ].divide(SizedBox(height: 6.0)),
+                            ),
+                            Column(
+                              mainAxisSize: MainAxisSize.max,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
                                   'E-mail*',
                                   style: FlutterFlowTheme.of(context)
                                       .bodyMedium
@@ -1033,6 +1205,50 @@ class _EditarPacienteWidgetState extends State<EditarPacienteWidget> {
                                       controller:
                                           _model.textFieldCepTextController,
                                       focusNode: _model.textFieldCepFocusNode,
+                                      onChanged: (_) => EasyDebounce.debounce(
+                                        '_model.textFieldCepTextController',
+                                        Duration(milliseconds: 2000),
+                                        () async {
+                                          _model.apiResult1ez =
+                                              await CepCall.call(
+                                            cep: _model
+                                                .textFieldCepTextController
+                                                .text,
+                                          );
+
+                                          if ((_model.apiResult1ez?.succeeded ??
+                                              true)) {
+                                            safeSetState(() {
+                                              _model.textFieldEndeTextController
+                                                  ?.text = CepCall.rua(
+                                                (_model.apiResult1ez
+                                                        ?.jsonBody ??
+                                                    ''),
+                                              )!;
+                                            });
+                                            safeSetState(() {
+                                              _model
+                                                  .textFieldBairroTextController
+                                                  ?.text = CepCall.bairro(
+                                                (_model.apiResult1ez
+                                                        ?.jsonBody ??
+                                                    ''),
+                                              )!;
+                                            });
+                                            safeSetState(() {
+                                              _model
+                                                  .textFieldCidadeTextController
+                                                  ?.text = CepCall.cidade(
+                                                (_model.apiResult1ez
+                                                        ?.jsonBody ??
+                                                    ''),
+                                              )!;
+                                            });
+                                          }
+
+                                          safeSetState(() {});
+                                        },
+                                      ),
                                       autofocus: false,
                                       obscureText: false,
                                       decoration: InputDecoration(
